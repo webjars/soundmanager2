@@ -1,0 +1,109 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+
+    <parent>
+        <groupId>org.sonatype.oss</groupId>
+        <artifactId>oss-parent</artifactId>
+        <version>7</version>
+    </parent>
+
+    <packaging>jar</packaging>
+    <groupId>org.webjars</groupId>
+    <artifactId>soundmanager2</artifactId>
+    <version>2.97a.20131201-SNAPSHOT</version>
+    <name>Soundmanager2</name>
+    <description>WebJar for soundmanager2</description>
+    <url>http://webjars.org</url>
+
+    <licenses>
+        <license>
+            <name>BSD-3</name>
+            <url>http://www.schillmania.com/projects/soundmanager2/license.txt</url>
+            <distribution>repo</distribution>
+        </license>
+    </licenses>
+
+    <scm>
+        <url>http://github.com/webjars/soundmanager2</url>
+        <connection>scm:git:https://github.com/webjars/soundmanager2.git</connection>
+        <developerConnection>scm:git:https://github.com/webjars/soundmanager.git</developerConnection>
+        <tag>HEAD</tag>
+    </scm>
+
+    <developers>
+        <developer>
+            <id>paranoiabla</id>
+            <name>Petar Tahchiev</name>
+            <email>petar@tahchiev.net</email>
+        </developer>
+    </developers>
+
+    <properties>
+        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+        <upstream.version>2.97a.20131201</upstream.version>
+        <upstream.directory>soundmanagerv297a-20131201</upstream.directory>
+        <upstream.file>soundmanagerv297a-20131201.zip</upstream.file>
+        <upstream.url>http://www.schillmania.com/projects/soundmanager2/download/</upstream.url>
+        <destDir>${project.build.outputDirectory}/META-INF/resources/webjars/${project.artifactId}/${upstream.version}</destDir>
+    </properties>
+
+    <build>
+        <plugins>
+            <plugin>
+                <groupId>org.codehaus.mojo</groupId>
+                <artifactId>wagon-maven-plugin</artifactId>
+                <version>1.0-beta-4</version>
+                <executions>
+                    <execution>
+                        <phase>process-resources</phase>
+                        <goals>
+                            <goal>download-single</goal>
+                        </goals>
+                        <configuration>
+                            <url>${upstream.url}</url>
+                            <fromFile>${upstream.file}</fromFile>
+                            <toFile>${project.build.directory}/${project.artifactId}.zip</toFile>
+                        </configuration>
+                    </execution>
+                </executions>
+            </plugin>
+            <plugin>
+                <artifactId>maven-antrun-plugin</artifactId>
+                <version>1.7</version>
+                <executions>
+                    <execution>
+                        <phase>process-resources</phase>
+                        <goals><goal>run</goal></goals>
+                        <configuration>
+                            <target>
+                                <echo message="unzip archive and file files" />
+                                <unzip src="${project.build.directory}/${project.artifactId}.zip" dest="${destDir}">
+                                    <patternset>
+                                        <exclude name="${upstream.directory}/demo/**" />
+                                        <exclude name="${upstream.directory}/doc/**" />
+										<exclude name="${upstream.directory}/src/**" />
+										<exclude name="${upstream.directory}/troubleshoot/**" />
+                                        <exclude name="${upstream.directory}/index.html" />
+                                    </patternset>
+                                    <mapper>
+                                        <!-- Strip leading directory off each path -->
+                                        <!-- So "xxx/docs/index.html" becomes "docs/index.html" -->
+                                        <cutdirsmapper dirs="1" />
+                                    </mapper>
+                                </unzip>
+                                <echo message="unzip done" />
+                            </target>
+                        </configuration>
+                    </execution>
+                </executions>
+            </plugin>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-release-plugin</artifactId>
+                <version>2.3.2</version>
+            </plugin>
+        </plugins>
+    </build>
+
+</project>
