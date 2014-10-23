@@ -46,6 +46,11 @@
         <upstream.file>soundmanagerv297a-20131201.zip</upstream.file>
         <upstream.url>http://www.schillmania.com/projects/soundmanager2/download/</upstream.url>
         <destDir>${project.build.outputDirectory}/META-INF/resources/webjars/${project.artifactId}/${upstream.version}</destDir>
+        <requirejs>{
+            "paths": {
+                "SoundManager": "script/soundmanager2-nodebug"
+            }
+        }</requirejs>
     </properties>
 
     <build>
