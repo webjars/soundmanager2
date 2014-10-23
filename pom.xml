@@ -11,9 +11,9 @@
     <packaging>jar</packaging>
     <groupId>org.webjars</groupId>
     <artifactId>soundmanager2</artifactId>
-    <version>2.98a.20131201-SNAPSHOT</version>
-    <name>Soundmanager2</name>
-    <description>WebJar for soundmanager2</description>
+    <version>2.97a.20131201-1-SNAPSHOT</version>
+    <name>SoundManager 2</name>
+    <description>WebJar for SoundManager 2</description>
     <url>http://webjars.org</url>
 
     <licenses>
@@ -45,10 +45,10 @@
         <upstream.directory>soundmanagerv297a-20131201</upstream.directory>
         <upstream.file>soundmanagerv297a-20131201.zip</upstream.file>
         <upstream.url>http://www.schillmania.com/projects/soundmanager2/download/</upstream.url>
-        <destDir>${project.build.outputDirectory}/META-INF/resources/webjars/${project.artifactId}/${upstream.version}</destDir>
+        <destDir>${project.build.outputDirectory}/META-INF/resources/webjars/${project.artifactId}/${project.version}</destDir>
         <requirejs>{
             "paths": {
-                "SoundManager": "script/soundmanager2-nodebug"
+                "soundmanager2": "script/soundmanager2-nodebug"
             }
         }</requirejs>
     </properties>
@@ -103,17 +103,23 @@
                     </execution>
                 </executions>
             </plugin>
+
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-release-plugin</artifactId>
-                <version>2.4.2</version>
-                <dependencies>
-                    <dependency>
-                        <groupId>org.apache.maven.scm</groupId>
-                        <artifactId>maven-scm-provider-gitexe</artifactId>
-                        <version>1.9</version>
-                    </dependency>
-                </dependencies>
+                <version>2.5</version>
+            </plugin>
+
+            <plugin>
+                <groupId>org.sonatype.plugins</groupId>
+                <artifactId>nexus-staging-maven-plugin</artifactId>
+                <version>1.5.1</version>
+                <extensions>true</extensions>
+                <configuration>
+                    <serverId>sonatype-nexus-staging</serverId>
+                    <nexusUrl>https://oss.sonatype.org/</nexusUrl>
+                    <autoReleaseAfterClose>true</autoReleaseAfterClose>
+                </configuration>
             </plugin>
         </plugins>
     </build>
