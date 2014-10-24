@@ -52,7 +52,7 @@
             },
             "shim": {
             	"soundmanager2": {
-            		exports: "soundManager"
+            		"exports": "soundManager"
             	}
             }
         }</requirejs>
