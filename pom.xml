@@ -49,6 +49,11 @@
         <requirejs>{
             "paths": {
                 "soundmanager2": "script/soundmanager2-nodebug"
+            },
+            "shim": {
+            	"soundmanager2": {
+            		exports: "soundManager"
+            	}
             }
         }</requirejs>
     </properties>
